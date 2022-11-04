@@ -8,3 +8,24 @@ button {
     /*font-weight: bold;*/
     cursor: pointer;
   }
+
+  button:hover {
+    background-color: rgb(77, 77, 93);
+  }
+  
+  .equals {
+    grid-column: 3 / 5;
+    background-color: #861368;
+  }
+  
+  .equals:hover {
+    background-color: #600d4a;
+  }
+
+  .signs{
+    background-color: #861368;
+  }
+
+  .signs:hover {
+    background-color:#600d4a;
+  }
