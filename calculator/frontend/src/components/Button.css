@@ -1,0 +1,10 @@
+button {
+    border: none;
+    border-radius: 0px;
+    outline: none;
+    background-color: rgb(85, 85, 97);
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    /*font-weight: bold;*/
+    cursor: pointer;
+  }
