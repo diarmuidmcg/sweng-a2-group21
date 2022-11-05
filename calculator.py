@@ -1,5 +1,4 @@
 import typing
-
 import math
 import re
 
@@ -44,7 +43,7 @@ class Calc:
 
     @staticmethod
     def log(x):
-        return math.log(x, 10)
+        return math.log(x)
 
     @staticmethod
     def prepare(expression):
