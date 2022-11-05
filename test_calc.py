@@ -21,29 +21,15 @@ def test_successful_calculation():
     test_value = Calc('100-10-20-30').calculate()
     assert type(test_value) is int
     assert 40 == test_value
-
-
     
+def test_syntax_error_validate():
+    try:
+        Calc('1**2').validate()
+    except Exception as e:
+        assert type(e) is SyntaxError
+    else:
+        assert False, 'No error raised when was expected to.'
+
+
 def test_syntax_error_output():
     assert 'Syntax error: Repeating symbols in a row.' == Calc('1**2').output()
-
-# def test_type_error_validate():
-#     try:
-#         Calc(345).validate()
-#     except Exception as e:
-#         assert type(e) is TypeError
-#     else:
-#         assert False, 'No error raised when was expected to.'
-
-
-# def test_syntax_error_validate():
-#     try:
-#         Calc('1**2').validate()
-#     except Exception as e:
-#         assert type(e) is SyntaxError
-#     else:
-#         assert False, 'No error raised when was expected to.'
-
-
-# def test_type_error_output():
-#      assert TypeError == Calc(123).output()
