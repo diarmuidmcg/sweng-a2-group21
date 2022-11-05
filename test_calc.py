@@ -22,7 +22,6 @@ def test_successful_calculation():
     assert type(test_value) is int
     assert 40 == test_value
     
-    
 def test_syntax_error_validate():
     try:
         Calc('1**2').validate()
