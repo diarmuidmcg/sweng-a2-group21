@@ -23,13 +23,13 @@ def test_successful_calculation():
     assert 40 == test_value
 
 
-def test_type_error_validate():
-    try:
-        Calc(345).validate()
-    except Exception as e:
-        assert type(e) is TypeError
-    else:
-        assert False, 'No error raised when was expected to.'
+# def test_type_error_validate():
+#     try:
+#         Calc(345).validate()
+#     except Exception as e:
+#         assert type(e) is TypeError
+#     else:
+#         assert False, 'No error raised when was expected to.'
 
 
 def test_syntax_error_validate():
