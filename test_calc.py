@@ -32,18 +32,18 @@ def test_successful_calculation():
 #         assert False, 'No error raised when was expected to.'
 
 
-def test_syntax_error_validate():
-    try:
-        Calc('1**2').validate()
-    except Exception as e:
-        assert type(e) is SyntaxError
-    else:
-        assert False, 'No error raised when was expected to.'
+# def test_syntax_error_validate():
+#     try:
+#         Calc('1**2').validate()
+#     except Exception as e:
+#         assert type(e) is SyntaxError
+#     else:
+#         assert False, 'No error raised when was expected to.'
 
 
-def test_type_error_output():
-     assert TypeError == Calc(123).output()
+# def test_type_error_output():
+#      assert TypeError == Calc(123).output()
 
 
-def test_syntax_error_output():
-     assert SyntaxError == Calc('1**2').output()
+# def test_syntax_error_output():
+#      assert SyntaxError == Calc('1**2').output()
