@@ -52,7 +52,8 @@ class Calc:
 
     def calculate(self):
         self.validate()
-        return eval(Calc.prepare(self.expression))
+        result = round(eval(Calc.prepare(self.expression)), 3)
+        return result
 
     def output(self) -> typing.Union[float, str]:
         try:
