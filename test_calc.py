@@ -23,6 +23,10 @@ def test_successful_calculation():
     assert 40 == test_value
 
 
+    
+def test_syntax_error_output():
+    assert 'Syntax error: Repeating symbols in a row.' == Calc('1**2').output()
+
 # def test_type_error_validate():
 #     try:
 #         Calc(345).validate()
@@ -43,7 +47,3 @@ def test_successful_calculation():
 
 # def test_type_error_output():
 #      assert TypeError == Calc(123).output()
-
-
-# def test_syntax_error_output():
-#      assert SyntaxError == Calc('1**2').output()
