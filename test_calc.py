@@ -42,10 +42,8 @@ def test_syntax_error_validate():
 
 
 def test_type_error_output():
-     assert 'Wrong input type.' == Calc(123).output()
+     assert TypeError == Calc(123).output()
 
 
 def test_syntax_error_output():
-     assert 'Invalid input syntax.' == Calc('1**2').output()
-
-
+     assert SyntaxError == Calc('1**2').output()
