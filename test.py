@@ -23,28 +23,28 @@ def test_successful_calculation():
     assert 40 == test_value
     
     test_value = Calc('exp(4)').calculate()
-    assert test_value.isalnum()
-    assert '54.598' == test_value
+    assert type(test_value) is float
+    assert 54.598 == test_value
     
-    test_value = Calc('3+5*exp(4.2)/(5+7)').calclate()
-    assert test_value.isalnum() 
-    assert '30.786' == test_value
+    test_value = Calc('3+5*exp(4.2)/(5+7)').calculate()
+    assert type(test_value) is float 
+    assert 30.786 == test_value
     
     test_value = Calc('(3+5)*2').calculate()
     assert type(test_value) is int
     assert 16 == test_value
     
     test_value = Calc('log(3+2)').calculate()
-    assert test_value.isalnum() 
-    assert '0.699' == test_value
+    assert type(test_value) is float
+    assert 0.699 == test_value
     
     test_value = Calc('log(10)').calculate()
-    assert test_value.isalnum() 
-    assert '1.000' == test_value
+    assert type(test_value) is float 
+    assert 1.000 == test_value
     
     test_value = Calc('log(9)').calculate()
-    assert test_value.isalnum() 
-    assert '0.954' == test_value
+    assert type(test_value) is float
+    assert 0.954 == test_value
     
     
 def test_syntax_error_validate():
@@ -61,3 +61,10 @@ def test_syntax_error_output():
     assert 'Syntax error: Repeating symbols in a row.' == Calc('3+**8').output()
     assert 'Syntax error: Repeating symbols in a row.' == Calc('4-**3').output()
     assert 'Syntax error: Repeating symbols in a row.' == Calc('5***2').output()
+
+if __name__ == '__main__':
+    test_successful_calculation()
+    test_syntax_error_validate()
+    test_syntax_error_output()
+
+
