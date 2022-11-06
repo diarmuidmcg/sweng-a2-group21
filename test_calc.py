@@ -22,6 +22,19 @@ def test_successful_calculation():
     assert type(test_value) is int
     assert 40 == test_value
     
+    test_value = Calc('exp(4)').calculate()
+    assert test_value.isalnum()
+    assert '54.598' == test_value
+    
+    test_value = Calc('3+5*exp(4.2)/(5+7)').calclate()
+    assert test_value.isalnum() 
+    assert '30.786' == test_value
+    
+    test_value = Calc('(3+5)*2').calculate()
+    assert type(test_value) is int
+    assert 16 == test_value
+    
+    
 def test_syntax_error_validate():
     try:
         Calc('1**2').validate()
@@ -33,3 +46,6 @@ def test_syntax_error_validate():
 
 def test_syntax_error_output():
     assert 'Syntax error: Repeating symbols in a row.' == Calc('1**2').output()
+    assert 'Syntax error: Repeating symbols in a row.' == Calc('3+**8').output()
+    assert 'Syntax error: Repeating symbols in a row.' == Calc('4-**3').output()
+    assert 'Syntax error: Repeating symbols in a row.' == Calc('5***2').output()
