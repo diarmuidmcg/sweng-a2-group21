@@ -34,6 +34,18 @@ def test_successful_calculation():
     assert type(test_value) is int
     assert 16 == test_value
     
+    test_value = Calc('log(3+2)').calculate()
+    assert test_value.isalnum() 
+    assert '0.699' == test_value
+    
+    test_value = Calc('log(10)').calculate()
+    assert test_value.isalnum() 
+    assert '1.000' == test_value
+    
+    test_value = Calc('log(9)').calculate()
+    assert test_value.isalnum() 
+    assert '0.954' == test_value
+    
     
 def test_syntax_error_validate():
     try:
