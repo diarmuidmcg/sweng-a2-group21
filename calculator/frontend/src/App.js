@@ -88,6 +88,10 @@ const App = () => {
         expression:
           input.expression === 0 && value === "0"
             ? "0"
+            : value === "x^y"
+            ? input.expression + "^"
+            : value === "e^x"
+            ? input.expression + "e^"
             : removeSpaces(input.expression + value),
             decimal: false,
       });
