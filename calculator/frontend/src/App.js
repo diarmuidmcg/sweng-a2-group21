@@ -6,8 +6,8 @@ import ButtonBox from "./components/ButtonBox";
 import Button from "./components/Button";
 
 const btnValues = [
-  ["(", ")", "x^y", "C"],
-  ["log", "ln", "e^x", "/"],
+  ["x^y", "e^x", "C"],
+  ["(", ")", "ln", "/"],
   [7, 8, 9, "x"],
   [4, 5, 6, "-"],
   [1, 2, 3, "+"],
@@ -20,71 +20,86 @@ const toLocaleString = (number) =>
   const removeSpaces = (number) => number.toString().replace(/\s/g, "");
 
 const App = () => {
-  let [calc, setCalc] = useState({
+  let [input, setInput] = useState({
     operator: "",
-    number: 0,
-    result: 0,
+    number: "",
+    expression: "",
+    result: "",
     calculate: false,
+    decimal: false,
   });
 
   const clearClickHandler = () => {
-    setCalc({
-      ...calc,
+    setInput({
+      ...input,
       operator: "",
-      number: 0,
-      result: 0,
+      number: "",
+      expression: "",
+      decimal: false,
     });
   };
 
   const equalsClickHandler = () => {
-    setCalc({
-      ...calc,
-      calculate: true,
-    });
+    setInput({
+      ...input,
+      expression: toLocaleString(input.expression),
+      operator: "",
+      number: "",
+      decimal: false,
+   });
   }
 
-  const signClickHandler = (e) => {
+  const operatorClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
-  }
+
+      setInput({
+        ...input,
+        expression: 
+          input.expression + value,
+        decimal: false,
+      });
+    }
 
   const commaClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
   
-    setCalc({
-      ...calc,
-      number: !calc.number.toString().includes(".") ? calc.number + value : calc.number,
+    if(!input.decimal) {
+    setInput({
+      ...input,
+      expression: input.expression + !input.number.toString().includes(".") ? input.expression + value : input.expression,
+      decimal: true,
     });
+  }
   };
 
   const numberClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
-    if (removeSpaces(calc.number).length < 16) {
-      setCalc({
-        ...calc,
-        number:
-          calc.number === 0 && value === "0"
+    if (removeSpaces(input.expression).length < 16) {
+      setInput({
+        ...input,
+        expression:
+          input.expression === 0 && value === "0"
             ? "0"
-            : removeSpaces(calc.number) % 1 === 0
-            ? toLocaleString(Number(removeSpaces(calc.number + value)))
-            : toLocaleString(calc.number + value),
-        result: !calc.operator ? 0 : calc.result,
+            : removeSpaces(input.expression) % 1 === 0
+            ? toLocaleString(Number(removeSpaces(input.expression + value)))
+            : toLocaleString(input.expression + value),
       });
     }
   };
 
   return (
     <Wrapper>
-      <Screen value={calc.number ? calc.number : calc.result} />
+      <Screen value={input.expression} />
       <ButtonBox>
         {btnValues.flat().map((btn, i) => {
           return (
             <Button
               key={i}
-              className={btn === "=" ? "equals" : btn === "C" ||
+              className={btn === "=" || btn === "C" ? "equals" : 
                btn === "/" || btn === "x" || btn === "-" || btn === "+" ? "signs" : ""}
               value={btn}
               onClick={
@@ -92,10 +107,11 @@ const App = () => {
                   ? clearClickHandler
                   : btn === "="
                   ? equalsClickHandler
-                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                  ? signClickHandler
                   : btn === "."
                   ? commaClickHandler
+                  : btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
+                  || btn === ")" || btn === "x^y" || btn === "ln" || btn === "e^y"
+                  ? operatorClickHandler
                   : numberClickHandler
               }
             />
@@ -105,5 +121,4 @@ const App = () => {
     </Wrapper>
   );
 };
-
 export default App;
