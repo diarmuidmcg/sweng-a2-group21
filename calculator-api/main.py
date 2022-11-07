@@ -1,19 +1,22 @@
 from calculator import Calc
-
-from fastapi import 
+from pydantic import BaseModel, BaseSettings
+from fastapi import FastAPI
 
 
 app = FastAPI()
 
+# parameter for calculate post request
 class CalcParameters(BaseModel):
-    expression: string
+    expression: str
 
-# sign in function that will pass take a username & password & send it to 
-# LibreView
+# post request, takes CalcParameters as paramter
 @app.post("/")
 async def calculate(operation: CalcParameters):
+    # print(operation.expression)
+    
     try:
-        return Calc(operation)
+        c1 = Calc(operation.expression)
+        return c1.output()
     except: 
         return "invalid parameters"
     
