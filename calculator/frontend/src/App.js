@@ -49,17 +49,21 @@ const App = () => {
    });
   }
 
-  const operatorClickHandler = (e) => {
+  /*const operatorClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
       setInput({
         ...input,
         expression: 
-          input.expression + value,
+          value === "x^y"
+          ? input.expression + "^"
+          : value === "e^y"
+          ? input.expression + "e^"
+          : input.expression + value
         decimal: false,
       });
-    }
+    }*/
 
   const commaClickHandler = (e) => {
     e.preventDefault();
@@ -110,7 +114,7 @@ const App = () => {
                   ? commaClickHandler
                   /*: btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
                   || btn === ")" || btn === "x^y" || btn === "ln" || btn === "e^y"
-                  ? operatorClickHandler8*/
+                  ? operatorClickHandler*/
                   : numberClickHandler
               }
             />
