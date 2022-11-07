@@ -14,16 +14,71 @@ const btnValues = [
   [0, ".", "="],
 ];
 
+const toLocaleString = (number) =>
+  String(number).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+
+  const removeSpaces = (number) => number.toString().replace(/\s/g, "");
+
 const App = () => {
   let [calc, setCalc] = useState({
     operator: "",
-    num: 0,
-    res: 0,
+    number: 0,
+    result: 0,
+    calculate: false,
   });
+
+  const clearClickHandler = () => {
+    setCalc({
+      ...calc,
+      operator: "",
+      number: 0,
+      result: 0,
+    });
+  };
+
+  const equalsClickHandler = () => {
+    setCalc({
+      ...calc,
+      calculate: true,
+    });
+  }
+
+  const signClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+  }
+
+  const commaClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+  
+    setCalc({
+      ...calc,
+      number: !calc.number.toString().includes(".") ? calc.number + value : calc.number,
+    });
+  };
+
+  const numberClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    if (removeSpaces(calc.number).length < 16) {
+      setCalc({
+        ...calc,
+        number:
+          calc.number === 0 && value === "0"
+            ? "0"
+            : removeSpaces(calc.number) % 1 === 0
+            ? toLocaleString(Number(removeSpaces(calc.number + value)))
+            : toLocaleString(calc.number + value),
+        result: !calc.operator ? 0 : calc.result,
+      });
+    }
+  };
 
   return (
     <Wrapper>
-      <Screen value={calc.num ? calc.num : calc.res} />
+      <Screen value={calc.number ? calc.number : calc.result} />
       <ButtonBox>
         {btnValues.flat().map((btn, i) => {
           return (
@@ -32,8 +87,17 @@ const App = () => {
               className={btn === "=" ? "equals" : btn === "C" ||
                btn === "/" || btn === "x" || btn === "-" || btn === "+" ? "signs" : ""}
               value={btn}
-              /*onClick={
-              }*/
+              onClick={
+                btn === "C"
+                  ? clearClickHandler
+                  : btn === "="
+                  ? equalsClickHandler
+                  : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                  ? signClickHandler
+                  : btn === "."
+                  ? commaClickHandler
+                  : numberClickHandler
+              }
             />
           );
         })}
