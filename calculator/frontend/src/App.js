@@ -5,10 +5,12 @@ import Screen from "./components/Screen";
 import ButtonBox from "./components/ButtonBox";
 import Button from "./components/Button";
 
+import axios from "axios";
+
 const btnValues = [
-  ["x^y", "e^x", "C"],
-  ["(", ")", "ln", "/"],
-  [7, 8, 9, "x"],
+  ["^", "sqrt", "C"],
+  ["(", ")", "log", "/"],
+  [7, 8, 9, "*"],
   [4, 5, 6, "-"],
   [1, 2, 3, "+"],
   [0, ".", "="],
@@ -17,7 +19,7 @@ const btnValues = [
 const toLocaleString = (number) =>
   String(number).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
 
-  const removeSpaces = (number) => number.toString().replace(/\s/g, "");
+const removeSpaces = (number) => number.toString().replace(/\s/g, "");
 
 const App = () => {
   let [input, setInput] = useState({
@@ -39,15 +41,23 @@ const App = () => {
     });
   };
 
-  const equalsClickHandler = () => {
-    setInput({
-      ...input,
-      expression: input.expression,
-      operator: "",
-      number: "",
-      decimal: false,
-   });
-  }
+  const equalsClickHandler = async () => {
+    var data = { expression: input.expression };
+
+    let url = "http://127.0.0.1:8000";
+    axios.post(url, data).then((response) => {
+      console.log("reponse is " + response.data);
+      // input.expression = response.data;
+      setInput({
+        ...response.data,
+        expression: response.data,
+        operator: "",
+        number: "",
+        result: response.data,
+        decimal: false,
+      });
+    });
+  };
 
   /*const operatorClickHandler = (e) => {
     e.preventDefault();
@@ -68,14 +78,17 @@ const App = () => {
   const commaClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
-  
-    if(!input.decimal) {
-    setInput({
-      ...input,
-      expression: input.expression + !input.number.toString().includes(".") ? input.expression + value : input.expression,
-      decimal: true,
-    });
-  }
+
+    if (!input.decimal) {
+      setInput({
+        ...input,
+        expression:
+          input.expression + !input.number.toString().includes(".")
+            ? input.expression + value
+            : input.expression,
+        decimal: true,
+      });
+    }
   };
 
   const numberClickHandler = (e) => {
@@ -88,8 +101,12 @@ const App = () => {
         expression:
           input.expression === 0 && value === "0"
             ? "0"
+            : value === "x^y"
+            ? input.expression + "^"
+            : value === "e^x"
+            ? input.expression + "e^"
             : removeSpaces(input.expression + value),
-            decimal: false,
+        decimal: false,
       });
     }
   };
@@ -102,8 +119,18 @@ const App = () => {
           return (
             <Button
               key={i}
-              className={btn === "=" || btn === "C" ? "equals" : 
-               btn === "/" || btn === "x" || btn === "-" || btn === "+" ? "signs" : ""}
+              className={
+                btn === "=" || btn === "C"
+                  ? "equals"
+                  : btn === "/" ||
+                    btn === "*" ||
+                    btn === "-" ||
+                    btn === "+" ||
+                    btn === "^" ||
+                    btn === "sqrt"
+                  ? "signs"
+                  : ""
+              }
               value={btn}
               onClick={
                 btn === "C"
@@ -112,10 +139,10 @@ const App = () => {
                   ? equalsClickHandler
                   : btn === "."
                   ? commaClickHandler
-                  /*: btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
+                  : /*: btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
                   || btn === ")" || btn === "x^y" || btn === "ln" || btn === "e^y"
                   ? operatorClickHandler*/
-                  : numberClickHandler
+                    numberClickHandler
               }
             />
           );
