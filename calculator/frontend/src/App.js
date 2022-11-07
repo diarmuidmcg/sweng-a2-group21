@@ -42,7 +42,7 @@ const App = () => {
   const equalsClickHandler = () => {
     setInput({
       ...input,
-      expression: toLocaleString(input.expression),
+      expression: input.expression,
       operator: "",
       number: "",
       decimal: false,
@@ -84,9 +84,8 @@ const App = () => {
         expression:
           input.expression === 0 && value === "0"
             ? "0"
-            : removeSpaces(input.expression) % 1 === 0
-            ? toLocaleString(Number(removeSpaces(input.expression + value)))
-            : toLocaleString(input.expression + value),
+            : removeSpaces(input.expression + value),
+            decimal: false,
       });
     }
   };
@@ -109,9 +108,9 @@ const App = () => {
                   ? equalsClickHandler
                   : btn === "."
                   ? commaClickHandler
-                  : btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
+                  /*: btn ==="/" || btn === "x" || btn === "-" || btn === "+" || btn === "("
                   || btn === ")" || btn === "x^y" || btn === "ln" || btn === "e^y"
-                  ? operatorClickHandler
+                  ? operatorClickHandler8*/
                   : numberClickHandler
               }
             />
