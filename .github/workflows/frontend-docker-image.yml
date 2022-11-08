@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        context: frontend
+        dockerfile: ./frontend/Dockerfile
     - name: Build the Front End Docker image
       run: docker build . --file Dockerfile --tag frontend-calc:$(date +%s)
