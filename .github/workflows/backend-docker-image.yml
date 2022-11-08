@@ -25,6 +25,6 @@ jobs:
       with:
           context: .
           push: true
-          tags: calc-api:$(date +%s)
-          labels: calc-api:$(date +%s)
+          tag: calc-api:$(date +%s)
+          label: calc-api:$(date +%s)
 
