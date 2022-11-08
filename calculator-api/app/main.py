@@ -1,4 +1,4 @@
-from calculator import Calc
+from app.calculator import Calc
 from pydantic import BaseModel, BaseSettings
 from fastapi import FastAPI
 
@@ -9,6 +9,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 app.add_middleware(
