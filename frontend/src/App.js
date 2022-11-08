@@ -43,7 +43,8 @@ const App = () => {
 
   const equalsClickHandler = async () => {
     var data = { expression: input.expression };
-
+    // const url = process.env.REACT_APP_SERVER_ADDRESS;
+    // console.log("url is " + url);
     let url = "http://127.0.0.1:8000";
     axios.post(url, data).then((response) => {
       console.log("reponse is " + response.data);
