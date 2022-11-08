@@ -24,6 +24,7 @@ jobs:
 #       run: docker build . --file ./calculator-api/Dockerfile --tag calc-api:$(date +%s)
       with:
           context: .
+          file: ./calculator-api/Dockerfile
           push: true
           tags: |
             docker.pkg.github.com/${{ github.repository }}/calc-api:${{ github.sha }}
