@@ -15,4 +15,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Front End Docker image
-      run: docker build . --file /frontend/Dockerfile --tag frontend-calc:$(date +%s)
+    - working-directory: frontend/
+      run: docker build . --file Dockerfile --tag frontend-calc:$(date +%s)
