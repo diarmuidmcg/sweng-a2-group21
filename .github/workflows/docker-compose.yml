@@ -1,0 +1,21 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # need checkout before using compose-action
+    - uses: actions/checkout@v3
+    - uses: isbang/compose-action@v1.4.0
+      with:
+        compose-file: "./docker-compose.yml"
+        down-flags: "--volumes"
+        services: |
+          frontend
+          calculator-api
