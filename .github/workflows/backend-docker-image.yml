@@ -1,14 +1,12 @@
 name: Backend Docker Image CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
+    types: [published]
 
 jobs:
 
-  build:
+  push_to_registry:
 
     runs-on: ubuntu-latest
 
