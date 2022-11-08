@@ -8,7 +8,7 @@ import Button from "./components/Button";
 import axios from "axios";
 
 const btnValues = [
-  ["^", "sqrt", "C"],
+  ["^", "exp", "C"],
   ["(", ")", "log", "/"],
   [7, 8, 9, "*"],
   [4, 5, 6, "-"],
@@ -95,7 +95,7 @@ const App = () => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
-    if (removeSpaces(input.expression).length < 16) {
+    if (removeSpaces(input.expression).length < 20) {
       setInput({
         ...input,
         expression:
@@ -127,7 +127,7 @@ const App = () => {
                     btn === "-" ||
                     btn === "+" ||
                     btn === "^" ||
-                    btn === "sqrt"
+                    btn === "exp"
                   ? "signs"
                   : ""
               }
