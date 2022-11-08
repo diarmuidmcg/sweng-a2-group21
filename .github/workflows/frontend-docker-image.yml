@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Front End Docker Image CI
 
 on:
   push:
@@ -14,6 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Front End Docker image
     - working-directory: frontend/
+    - name: Build the Front End Docker image
       run: docker build . --file Dockerfile --tag frontend-calc:$(date +%s)
